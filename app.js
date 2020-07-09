@@ -1,6 +1,12 @@
 // const http = require('http');
 const express = require('express');
+const bodyParser = require('body-parser');
+
 const app = express(); 
+
+//json parser
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
 
 const UserRouter = require('./routes/User');
 const BookRouter = require('./routes/Book');
