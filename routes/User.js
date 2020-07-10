@@ -1,12 +1,11 @@
 const express = require('express');
-const router = express.Router();
 const { getListOfUsers, postUserInfo, getUserById, updateUserById, deleteUserById } = require('./User_cosmos');
+const router = express.Router();
 
 
 router.get('/', (req, res) => {
     getListOfUsers(req, res);
 });
-
 
 router.post('/', (req, res) => {
     postUserInfo(req, res);

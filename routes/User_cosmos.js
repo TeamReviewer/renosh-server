@@ -1,12 +1,6 @@
-require('dotenv').config()
-const { CosmosClient } = require("@azure/cosmos");
+//connect cosmos DB
+const client = require('./config');
 
-// connect cosmos DB
-const endpoint = process.env.COSMOSDB_ENDPOINT;
-const key = process.env.COSMOSDB_KEY; 
-// const endpoint = "https://renosh.documents.azure.com:443/";
-// const key = "VGGuRGqhhxhHNuDbdpV0ypJo3DlGRtchkGH1ofFgaq3XFX4ynqcJlWbVVoRMk48Gn8jQjxHjfFKpcvbTarRd4A=="; 
-const client = new CosmosClient({ endpoint, key });
 const database = client.database('renosh');
 const container = database.container('user');
 
