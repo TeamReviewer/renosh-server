@@ -6,6 +6,7 @@ const container = database.container('user');
 
 
 async function getListOfUsers(req, res){
+    console.log(client);
     try{
         const { resources: UserList } = await container.items.readAll().fetchAll();
         res.status(200).json(UserList);
