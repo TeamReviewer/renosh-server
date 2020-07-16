@@ -27,7 +27,7 @@ const options = {
   // Import swaggerDefinitions
   swaggerDefinition: swaggerDefinition,
   // Path to the API docs
-  apis: ['./docs/index.js'], // ./docs/*.js
+  apis: ['./docs/*.js'], // ./docs/*.js
 };
 
 // Initialize swagger-jsdoc -> returns validated swagger spec in json format
