@@ -4,14 +4,14 @@
  *  BookModel:
  *   type: object
  *   required:
- *     - id
+ *     - book_id
  *     - title
  *     - author
  *     - summary
  *     - image
  *     - epubURL
  *   properties:
- *     id:
+ *     book_id:
  *       type: string
  *       description: 책 id
  *     title:
@@ -73,9 +73,9 @@
  *          type: array
  *          items:
  *            properties:
- *              title:
+ *              book_id:
  *                type: string
- *                description: 책 제목
+ *                description: 책 id
  *       400:
  *         $ref: '#/definitions/ErrorResponse/400'
  *       500:
@@ -102,11 +102,88 @@
  *        schema:
  *          type: object
  *          properties:
- *            title:
+ *            book_id:
  *              type: string
- *              description: 책 제목
+ *              description: 책 id
  *       400:
  *         $ref: '#/definitions/ErrorResponse/400'
  *       500:
  *         $ref: '#/definitions/ErrorResponse/500'
+ */ 
+
+/**
+ * @swagger
+ *  /api/books/:book_id:
+ *    get:
+ *      tags:
+ *      - Books
+ *      name: Get A Specific Book
+ *      summary: Get A Specific Book
+ *      description: 한 권의 책 정보를 가져오는 요청
+ *      produces:
+ *      - application/json
+ *      parameters:
+ *      - name: request query
+ *        in: query
+ *      responses:
+ *        200:  
+ *          description: 요청 성공
+ *          schema:
+ *            $ref: '#/definitions/BookModel'
+ *        400:
+ *          $ref: '#/definitions/ErrorResponse/400'
+ *        500:
+ *          $ref: '#/definitions/ErrorResponse/500'
+
+ *    put:
+ *      tags:
+ *      - Books
+ *      name: Update A Specific Book
+ *      summary: Update A Specific Book
+ *      description: 한 권의 책 정보를 수정하는 요청
+ *      consumes:
+ *      - application/json
+ *      produces:
+ *      - application/json
+ *      parameters:
+ *       - name: request body
+ *         in: body
+ *         schema:
+ *           $ref: '#/definitions/BookModel'
+ *      responses:
+ *        200:  
+ *          description: 요청 성공
+ *          schema:
+ *            $ref: '#/definitions/BookModel'
+ *        400:
+ *          $ref: '#/definitions/ErrorResponse/400'
+ *        500:
+ *          $ref: '#/definitions/ErrorResponse/500'
+
+ *    delete:
+ *      tags:
+ *      - Books
+ *      name: Delete A Specific Book
+ *      summary: Delete A Specific Book
+ *      description: 한 권의 책 정보를 삭제하는 요청
+ *      consumes:
+ *      - application/json
+ *      produces:
+ *      - application/json
+ *      parameters:
+ *      - name: request query
+ *        in: query
+ *      responses:
+ *        200:  
+ *          description: 요청 성공
+ *          schema:
+ *            type: object
+ *            properties:
+ *              book_id:
+ *                type: string
+ *                description: 책 id
+ *        400:
+ *          $ref: '#/definitions/ErrorResponse/400'
+ *        500:
+ *          $ref: '#/definitions/ErrorResponse/500'
  */ 

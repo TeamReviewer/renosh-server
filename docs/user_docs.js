@@ -109,8 +109,8 @@
  *    get:
  *      tags:
  *      - Users
- *      name: Get A Specific Users
- *      summary: Get A Specific Users
+ *      name: Get A Specific User
+ *      summary: Get A Specific User
  *      description: 한 명의 회원 정보를 가져오는 요청
  *      produces:
  *      - application/json
@@ -130,8 +130,8 @@
  *    put:
  *      tags:
  *      - Users
- *      name: Update A Specific Users
- *      summary: Update A Specific Users
+ *      name: Update A Specific User
+ *      summary: Update A Specific User
  *      description: 한 명의 회원 정보를 수정하는 요청
  *      consumes:
  *      - application/json
@@ -155,8 +155,8 @@
  *    delete:
  *      tags:
  *      - Users
- *      name: Delete A Specific Users
- *      summary: Delete A Specific Users
+ *      name: Delete A Specific User
+ *      summary: Delete A Specific User
  *      description: 한 명의 회원 정보를 삭제하는 요청
  *      consumes:
  *      - application/json
