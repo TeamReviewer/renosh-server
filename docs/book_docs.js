@@ -53,3 +53,60 @@
  *            type: integer
  *            description: 에러코드
  */
+
+/**
+ * @swagger
+ *  /api/books:
+ *    get:
+ *      tags:
+ *      - Books
+ *      name: Get All Books
+ *      summary: Get All Books
+ *      description: 모든 책들을 가져오는 요청
+ *      produces:
+ *      - application/json
+ *      parameters:
+ *      responses:
+ *       200:
+ *        description: 요청 성공
+ *        schema:
+ *          type: array
+ *          items:
+ *            properties:
+ *              title:
+ *                type: string
+ *                description: 책 제목
+ *       400:
+ *         $ref: '#/definitions/ErrorResponse/400'
+ *       500:
+ *         $ref: '#/definitions/ErrorResponse/500'
+
+ *    post:
+ *      tags:
+ *      - Books
+ *      name: Register One Book
+ *      summary: Register One User
+ *      description: 책 한 권을 등록하는 요청
+ *      consumes:
+ *      - application/json
+ *      produces:
+ *      - application/json
+ *      parameters:
+ *       - name: request body
+ *         in: body
+ *         schema:
+ *           $ref: '#/definitions/BookModel'
+ *      responses:
+ *       200:
+ *        description: 요청 성공
+ *        schema:
+ *          type: object
+ *          properties:
+ *            title:
+ *              type: string
+ *              description: 책 제목
+ *       400:
+ *         $ref: '#/definitions/ErrorResponse/400'
+ *       500:
+ *         $ref: '#/definitions/ErrorResponse/500'
+ */ 
