@@ -85,7 +85,7 @@
  *      tags:
  *      - Books
  *      name: Register One Book
- *      summary: Register One User
+ *      summary: Register One Book
  *      description: 책 한 권을 등록하는 요청
  *      consumes:
  *      - application/json
@@ -166,8 +166,6 @@
  *      name: Delete A Specific Book
  *      summary: Delete A Specific Book
  *      description: 한 권의 책 정보를 삭제하는 요청
- *      consumes:
- *      - application/json
  *      produces:
  *      - application/json
  *      parameters:

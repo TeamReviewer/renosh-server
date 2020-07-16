@@ -158,8 +158,6 @@
  *      name: Delete A Specific User
  *      summary: Delete A Specific User
  *      description: 한 명의 회원 정보를 삭제하는 요청
- *      consumes:
- *      - application/json
  *      produces:
  *      - application/json
  *      parameters:
