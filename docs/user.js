@@ -56,7 +56,7 @@
  *      summary: Get All Users
  *      description: 모든 회원들을 가져오는 요청
  *      produces:
- *      - applicaion/json
+ *      - application/json
  *      parameters:
  *      responses:
  *       200:
@@ -64,7 +64,10 @@
  *        schema:
  *          type: array
  *          items:
- *            $ref: '#/definitions/UserModel'
+ *            properties:
+ *              user_id:
+ *                type: string
+ *                description: 아이디
  *       400:
  *         $ref: '#/definitions/ErrorResponse/400'
  *       500:
@@ -77,27 +80,14 @@
  *      summary: Register One User
  *      description: 회원 한 명을 등록하는 요청
  *      consumes:
- *      - applicaion/json
+ *      - application/json
  *      produces:
- *      - applicaion/json
+ *      - application/json
  *      parameters:
  *       - name: request body
  *         in: body
  *         schema:
- *           type: object
- *           properties:
- *             user_id:
- *               type: string
- *               description: 아이디
- *             password: 
- *               type: string
- *               description: 비밀번호
- *             name: 
- *               type: string
- *               description: 이름
- *             registered_type:
- *               type: string
- *               description: 가입유형
+ *           $ref: '#/definitions/UserModel'
  *      responses:
  *       200:
  *        description: 요청 성공
@@ -106,8 +96,86 @@
  *          properties:
  *            user_id:
  *              type: string
+ *              description: 아이디
  *       400:
  *         $ref: '#/definitions/ErrorResponse/400'
  *       500:
  *         $ref: '#/definitions/ErrorResponse/500'
+ */ 
+
+/**
+ * @swagger
+ *  /api/users/:user_id:
+ *    get:
+ *      tags:
+ *      - Users
+ *      name: Get A Specific Users
+ *      summary: Get A Specific Users
+ *      description: 한 명의 회원 정보를 가져오는 요청
+ *      produces:
+ *      - application/json
+ *      parameters:
+ *      - name: request query
+ *        in: query
+ *      responses:
+ *        200:  
+ *          description: 요청 성공
+ *          schema:
+ *            $ref: '#/definitions/UserModel'
+ *        400:
+ *          $ref: '#/definitions/ErrorResponse/400'
+ *        500:
+ *          $ref: '#/definitions/ErrorResponse/500'
+
+ *    put:
+ *      tags:
+ *      - Users
+ *      name: Update A Specific Users
+ *      summary: Update A Specific Users
+ *      description: 한 명의 회원 정보를 수정하는 요청
+ *      consumes:
+ *      - application/json
+ *      produces:
+ *      - application/json
+ *      parameters:
+ *       - name: request body
+ *         in: body
+ *         schema:
+ *           $ref: '#/definitions/UserModel'
+ *      responses:
+ *        200:  
+ *          description: 요청 성공
+ *          schema:
+ *            $ref: '#/definitions/UserModel'
+ *        400:
+ *          $ref: '#/definitions/ErrorResponse/400'
+ *        500:
+ *          $ref: '#/definitions/ErrorResponse/500'
+
+ *    delete:
+ *      tags:
+ *      - Users
+ *      name: Delete A Specific Users
+ *      summary: Delete A Specific Users
+ *      description: 한 명의 회원 정보를 삭제하는 요청
+ *      consumes:
+ *      - application/json
+ *      produces:
+ *      - application/json
+ *      parameters:
+ *      - name: request query
+ *        in: query
+ *      responses:
+ *        200:  
+ *          description: 요청 성공
+ *          schema:
+ *            type: object
+ *            properties:
+ *              user_id:
+ *                type: string
+ *                description: 아이디
+ *        400:
+ *          $ref: '#/definitions/ErrorResponse/400'
+ *        500:
+ *          $ref: '#/definitions/ErrorResponse/500'
  */ 
