@@ -1,8 +1,6 @@
 const express = require('express');
-<<<<<<< HEAD
 const router = express.Router();
 
-=======
 const { getHglByBook, getallhighlights, getHglById, postHgl, deleteHgl, editHglmemo,getAnnotByBook } = require('./Highlight_cosmos');
 const router = express.Router();
 
@@ -37,5 +35,4 @@ router.put('/:highlight_id',(req,res)=>{
     editHglmemo(req,res);
 })
 
->>>>>>> 1e8f764d085b7e2df68fe1854a56925ea6ca5ae9
 module.exports = router;

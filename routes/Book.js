@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-<<<<<<< HEAD
-=======
 //connect cosmos DB
 const client = require('./config');
 
@@ -97,6 +95,5 @@ async function deleteBook(req, res){
 router.delete("/:bookid",(req, res)=>{
     deleteBook(req, res);
 });
->>>>>>> 1e8f764d085b7e2df68fe1854a56925ea6ca5ae9
 
 module.exports = router;
