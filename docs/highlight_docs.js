@@ -22,7 +22,7 @@
  *     location:
  *       type: string
  *       description: 밑줄 위치
- *     memo:
+ *     text:
  *       type: string
  *       description: 어노테이션
  *  ErrorResponse: 
@@ -52,18 +52,21 @@
 
 /**
  * @swagger
- *  /api/book/:book_id:
+ *  /api/highlights/book/{book_id}:
  *    get:
  *      tags:
  *      - Highlights
- *      name: Get All Highlights
- *      summary: Get All Highlights
+ *      name: Get All Highlights By Book ID
+ *      summary: Get All Highlights By Book ID
  *      description: 특정 책에 대한 모든 밑줄들을 가져오는 요청
  *      produces:
  *      - application/json
  *      parameters:
- *      - name: request query
- *        in: query
+ *      - name: request in path
+ *        in: path
+ *        schema:
+ *          type: integer
+ *        required: true
  *      responses:
  *       200:
  *        description: 요청 성공
@@ -82,15 +85,15 @@
  *    post:
  *      tags:
  *      - Highlights
- *      name: Register One Highlight
- *      summary: Register One Highlight
+ *      name: Register One Highlight / Annotation
+ *      summary: Register One Highlight / Annotation
  *      description: 특정 책에 대한 하나의 밑줄을 등록하는 요청
  *      consumes:
  *      - application/json
  *      produces:
  *      - application/json
  *      parameters:
- *       - name: request body
+ *       - name: body
  *         in: body
  *         schema:
  *           $ref: '#/definitions/HighlightModel'
@@ -111,18 +114,18 @@
 
 /**
  * @swagger
- *  /api/book/:book_id/memo:
+ *  /api/highlights/book/{book_id}/memo:
  *    get:
  *      tags:
  *      - Highlights
- *      name: Get All Annotations
- *      summary: Get All Annotations
+ *      name: Get All Annotations By Book ID
+ *      summary: Get All Annotations By Book ID
  *      description: 특정 책에 대한 모든 메모들을 가져오는 요청
  *      produces:
  *      - application/json
  *      parameters:
- *      - name: request query
- *        in: query
+ *      - name: book_id
+ *        in: path
  *      responses:
  *       200:
  *        description: 요청 성공
@@ -141,18 +144,18 @@
 
  /**
  * @swagger
- *  /api/:high_id:
+ *  /api/highlights/{high_id}:
  *    get:
  *      tags:
  *      - Highlights
- *      name: Get A Specific Highlight
- *      summary: Get A Specific Highlight
+ *      name: Get A Specific Highlight By Highlight ID
+ *      summary: Get A Specific Highlight By Highlight ID
  *      description: 하나의 밑줄 정보를 가져오는 요청
  *      produces:
  *      - application/json
  *      parameters:
- *      - name: request query
- *        in: query
+ *      - name: high_id
+ *        in: path
  *      responses:
  *        200:  
  *          description: 요청 성공
@@ -166,15 +169,19 @@
  *    put:
  *      tags:
  *      - Highlights
- *      name: Update A Specific Highlight(Annotation)
- *      summary: Update A Specific Highlight(Annotation)
+ *      name: Update A Specific Highlight(Annotation) By Highlight ID
+ *      summary: Update A Specific Highlight(Annotation) By Highlight ID
  *      description: 하나의 밑줄 정보를 수정하는 요청
  *      consumes:
  *      - application/json
  *      produces:
  *      - application/json
  *      parameters:
- *       - name: request body
+ *       - name: high_id
+ *         in: path
+ *         schema:
+ *           type: string
+ *       - name: body
  *         in: body
  *         schema:
  *           $ref: '#/definitions/HighlightModel'
@@ -191,14 +198,14 @@
  *    delete:
  *      tags:
  *      - Highlights
- *      name: Delete A Specific Highlight
- *      summary: Delete A Specific Highlight
+ *      name: Delete A Specific Highlight By Highlight ID
+ *      summary: Delete A Specific Highlight By Highlight ID
  *      description: 하나의 밑줄 정보를 삭제하는 요청
  *      produces:
  *      - application/json
  *      parameters:
- *      - name: request query
- *        in: query
+ *      - name: high_id
+ *        in: path
  *      responses:
  *        200:  
  *          description: 요청 성공

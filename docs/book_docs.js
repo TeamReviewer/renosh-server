@@ -65,7 +65,6 @@
  *      description: 모든 책들을 가져오는 요청
  *      produces:
  *      - application/json
- *      parameters:
  *      responses:
  *       200:
  *        description: 요청 성공
@@ -92,7 +91,7 @@
  *      produces:
  *      - application/json
  *      parameters:
- *       - name: request body
+ *       - name: body
  *         in: body
  *         schema:
  *           $ref: '#/definitions/BookModel'
@@ -113,7 +112,7 @@
 
 /**
  * @swagger
- *  /api/books/:book_id:
+ *  /api/books/{book_id}:
  *    get:
  *      tags:
  *      - Books
@@ -123,8 +122,8 @@
  *      produces:
  *      - application/json
  *      parameters:
- *      - name: request query
- *        in: query
+ *      - name: book_id
+ *        in: path
  *      responses:
  *        200:  
  *          description: 요청 성공
@@ -138,15 +137,20 @@
  *    put:
  *      tags:
  *      - Books
- *      name: Update A Specific Book
- *      summary: Update A Specific Book
+ *      name: Update A Specific Book By Book ID
+ *      summary: Update A Specific Book By Book ID
  *      description: 한 권의 책 정보를 수정하는 요청
  *      consumes:
  *      - application/json
  *      produces:
  *      - application/json
  *      parameters:
- *       - name: request body
+ *       - name: book_id
+ *         in: path
+ *         schema:
+ *           type: string
+ *         required: true
+ *       - name: body
  *         in: body
  *         schema:
  *           $ref: '#/definitions/BookModel'
@@ -163,14 +167,17 @@
  *    delete:
  *      tags:
  *      - Books
- *      name: Delete A Specific Book
- *      summary: Delete A Specific Book
+ *      name: Delete A Specific Book By Book ID
+ *      summary: Delete A Specific Book By Book ID
  *      description: 한 권의 책 정보를 삭제하는 요청
  *      produces:
  *      - application/json
  *      parameters:
- *      - name: request query
- *        in: query
+ *       - name: book_id
+ *         in: path
+ *         schema:
+ *           type: string
+ *         required: true
  *      responses:
  *        200:  
  *          description: 요청 성공

@@ -57,7 +57,6 @@
  *      description: 모든 회원들을 가져오는 요청
  *      produces:
  *      - application/json
- *      parameters:
  *      responses:
  *       200:
  *        description: 요청 성공
@@ -84,7 +83,7 @@
  *      produces:
  *      - application/json
  *      parameters:
- *       - name: request body
+ *       - name: body
  *         in: body
  *         schema:
  *           $ref: '#/definitions/UserModel'
@@ -105,18 +104,21 @@
 
 /**
  * @swagger
- *  /api/users/:user_id:
+ *  /api/users/{user_id}:
  *    get:
  *      tags:
  *      - Users
- *      name: Get A Specific User
- *      summary: Get A Specific User
+ *      name: Get A Specific User By User ID
+ *      summary: Get A Specific User By User ID
  *      description: 한 명의 회원 정보를 가져오는 요청
  *      produces:
  *      - application/json
  *      parameters:
- *      - name: request query
- *        in: query
+ *      - name: user_id
+ *        in: path
+ *        schema:
+ *          type: string
+ *        required: true
  *      responses:
  *        200:  
  *          description: 요청 성공
@@ -130,15 +132,20 @@
  *    put:
  *      tags:
  *      - Users
- *      name: Update A Specific User
- *      summary: Update A Specific User
+ *      name: Update A Specific User By User ID
+ *      summary: Update A Specific User By User ID
  *      description: 한 명의 회원 정보를 수정하는 요청
  *      consumes:
  *      - application/json
  *      produces:
  *      - application/json
  *      parameters:
- *       - name: request body
+ *       - name: user_id
+ *         in: path
+ *         schema:
+ *           type: string
+ *         required: true
+ *       - name: body
  *         in: body
  *         schema:
  *           $ref: '#/definitions/UserModel'
@@ -155,14 +162,17 @@
  *    delete:
  *      tags:
  *      - Users
- *      name: Delete A Specific User
- *      summary: Delete A Specific User
+ *      name: Delete A Specific User By User ID
+ *      summary: Delete A Specific User By User ID
  *      description: 한 명의 회원 정보를 삭제하는 요청
  *      produces:
  *      - application/json
  *      parameters:
- *      - name: request query
- *        in: query
+ *       - name: user_id
+ *         in: path
+ *         schema:
+ *           type: string
+ *         required: true
  *      responses:
  *        200:  
  *          description: 요청 성공

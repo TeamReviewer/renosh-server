@@ -75,7 +75,7 @@ async function deleteUserById(req, res){
     const user_id = req.params.user_id;
     try{
         const {resource: item} = await container.item(user_id, undefined).delete();
-        res.status(200).json(item);
+        res.status(200).json(user_id);
         console.log(`User ${user_id} deleted successfully`);
     } catch(error){
         res.status(500).send(error);

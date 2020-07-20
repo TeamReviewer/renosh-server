@@ -2,6 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express(); 
+const cors = require('cors');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
@@ -27,7 +28,7 @@ const options = {
   // Import swaggerDefinitions
   swaggerDefinition: swaggerDefinition,
   // Path to the API docs
-  apis: ['./docs/*.js'], // ./docs/*.js
+  apis: ['./routes/*.js'], // ./docs/*.js
 };
 
 // Initialize swagger-jsdoc -> returns validated swagger spec in json format
@@ -48,6 +49,7 @@ const HighRouter = require('./routes/Highlight');
 
 // require('dotenv').config()
 
+app.use(cors())
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/users', UserRouter);
 app.use('/api/books', BookRouter);
