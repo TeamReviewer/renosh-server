@@ -5,8 +5,13 @@ const database = client.database('renosh');
 const container = database.container('post' );
 
 async function getListOfBooks(req, res){
+    const querySpec = {
+        query:
+        "SELECT * FROM c WHERE c.type = 'book'"
+    };
     try{
-        const { resources: bookList } = await container.items.readAll().fetchAll();
+        const { resources: bookList } = await container.items.query(querySpec).fetchAll();
+        // const { resources: bookList } = await container.items.readAll().fetchAll();
         res.json(bookList);
     }catch(error){
         res.status(500).send(error);
@@ -14,9 +19,18 @@ async function getListOfBooks(req, res){
 }
 
 async function getBookWithId(req, res){
+    const querySpec = {
+        query:
+        "SELECT * FROM c WHERE c.type = 'book' AND  c.bookid = @book_id",
+        parameters: [
+            {
+                name:'@book_id',
+                value: req.params.bookid
+            }
+        ]
+    };
     try{
-        const bookid = req.params.bookid;
-        const { resource: book } = await container.item(bookid, bookid).read();
+        const { resource: book } = await container.items.query(querySpec).fetchAll();
         console.log(book);
         res.json(book);
     }catch(error){
