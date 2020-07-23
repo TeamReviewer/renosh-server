@@ -11,7 +11,6 @@ async function getListOfBooks(req, res){
     };
     try{
         const { resources: bookList } = await container.items.query(querySpec).fetchAll();
-        // const { resources: bookList } = await container.items.readAll().fetchAll();
         res.json(bookList);
     }catch(error){
         res.status(500).send(error);
@@ -19,19 +18,9 @@ async function getListOfBooks(req, res){
 }
 
 async function getBookWithId(req, res){
-    const querySpec = {
-        query:
-        "SELECT * FROM c WHERE c.type = 'book' AND  c.bookid = @book_id",
-        parameters: [
-            {
-                name:'@book_id',
-                value: req.params.bookid
-            }
-        ]
-    };
     try{
-        const { resource: book } = await container.items.query(querySpec).fetchAll();
-        console.log(book);
+        const bookid = req.params.bookid;
+        const {resource: book} = await container.item(bookid, bookid).read();
         res.json(book);
     }catch(error){
         res.status(500).send(error);
@@ -53,7 +42,7 @@ async function putBookInfo(req, res){
     const bookid = req.params.bookid;
     const bookinfo = req.body;
     try{
-        const { resource } = await container.item(bookid,bookid).replace(bookinfo);
+        const {resource: book} = await container.item(bookid, bookid).replace(bookinfo);
         res.send("Book info updated Succesfully");
     }catch(error){
         res.status(500).send(error);
@@ -63,7 +52,7 @@ async function putBookInfo(req, res){
 async function deleteBook(req, res){
     const bookid = req.params.bookid;
     try{
-        const {resource: item} = await container.item(bookid, bookid).delete();
+        const {resources: item} = await container.item(bookid, bookid).delete();
         res.status(200).json({"book id":bookid});
         console.log("Book deleted successfully");
     } catch(error){
