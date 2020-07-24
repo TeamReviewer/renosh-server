@@ -2,7 +2,7 @@
 const client = require('./config');
 
 const database = client.database('renosh');
-const container = database.container('post' );
+const container = database.container('bookbinder' );
 
 async function getListOfBooks(req, res){
     const querySpec = {
