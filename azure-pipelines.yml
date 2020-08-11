@@ -18,4 +18,13 @@ steps:
 - script: |
     npm install
   displayName: 'npm install'
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Visual Studio Enterprise with MSDN (d1a9147f-aab1-4e87-af62-04e2d804917d)'
+    appType: 'webApp'
+    WebAppName: 'renoshapi'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/'
+
+
   
