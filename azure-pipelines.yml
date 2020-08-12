@@ -6,25 +6,70 @@
 trigger:
 - master
 
-pool:
-  vmImage: 'ubuntu-latest'
+# pool:
+#   vmImage: 'ubuntu-latest'
+variables:
+  # Web app name
+  webAppName: 'renoshapi'
+  
+  # Environment name
+  environmentName: 'renoshapi'
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
 
-- script: |
-    npm install
-  displayName: 'npm install'
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'Visual Studio Enterprise with MSDN (d1a9147f-aab1-4e87-af62-04e2d804917d)'
-    appType: 'webApp'
-    WebAppName: 'renoshapi'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/'
+stages:
+- stage: Build
+  displayName: Build stage
+  jobs:  
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
+
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '10.x'
+      displayName: 'Install Node.js'
+
+    - script: |
+        npm install
+      displayName: 'npm install'
+
+    - task: ArchiveFiles@2
+      displayName: 'Archive files'
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/build'
+        includeRootFolder: false
+        archiveType: zip
+        archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+        replaceExistingArchive: true
+
+    - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+      artifact: drop
+
+- stage: Deploy
+  displayName: Deploy stage
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    environment: $(environmentName)
+    pool: 
+      vmImage: $(vmImageName)
+    strategy:
+      runOnce:
+        deploy:
+          steps:      
+          - task: AzureRmWebAppDeployment@4
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: 'Visual Studio Enterprise with MSDN (d1a9147f-aab1-4e87-af62-04e2d804917d)'
+              appType: 'webApp'
+              WebAppName: 'renoshapi'
+              packageForLinux: '$(System.DefaultWorkingDirectory)/'
 
 
   
