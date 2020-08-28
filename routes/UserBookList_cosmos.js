@@ -58,15 +58,18 @@ async function postMyBookListOfUsersById(req, res){
 async function updateMyBookListById(req, res){
     const id = req.params.userbooklistid;
     const userid = req.params.userid;
+    let readbookid = req.body.bookid;
     try{
         const {resource: user} = await container.item(id, userid).read();
         const userinfo = {
             id: user.id,
             userid: user.userid,
             username: user.username,
-            mybooklist: req.body.mybooklist, // update 할 부분
+            mybooklist: user.mybooklist, // update 할 부분
             wishlist: user.wishlist
         };
+        var newbook = {bookid:readbookid, location:"2"};
+        userinfo.mybooklist.push(newbook);
         const {resource: item} = await container.item(id, userid).replace(userinfo);
         res.status(200).json(`User ${userid} my book list updated successfully`);
         console.log(`User ${userid} my book list updated successfully`);
@@ -75,9 +78,35 @@ async function updateMyBookListById(req, res){
     }
 }
 
+async function updateMyBookLastRead(req, res){
+    const id = req.params.userbooklistid;
+    const userid=req.params.userid;
+    const bookid = req.body.bookid;
+    try{
+        const {resource:user} = await container.item(id, userid).read();
+        const userinfo={
+            id:user.id,
+            userid: user.userid,
+            username:user.username,
+            mybooklist: user.mybooklist,
+            wishlist: user.wishlist,
+            
+        };
+        for(let i=0;i<userinfo.mybooklist.length;i++){
+            if(userinfo.mybooklist[i].bookid==bookid){
+                userinfo.mybooklist[i].location = req.body.location;
+            }
+        }
+        const {resource:item} = await container.item(id, userid).replace(userinfo);
+        res.status(200).json(item);
+    } catch(error){
+        res.status(500).send(error);
+    }
+}
 module.exports = {
     getUserBookListByUserId,
     getMyBookListOfUsersByUserId,
     postMyBookListOfUsersById,
-    updateMyBookListById
+    updateMyBookListById,
+    updateMyBookLastRead
 }
