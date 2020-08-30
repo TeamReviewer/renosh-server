@@ -61,16 +61,9 @@ async function updateMyBookListById(req, res){
     let readbookid = req.body.bookid;
     try{
         const {resource: user} = await container.item(id, userid).read();
-        const userinfo = {
-            id: user.id,
-            userid: user.userid,
-            username: user.username,
-            mybooklist: user.mybooklist, // update 할 부분
-            wishlist: user.wishlist
-        };
         var newbook = {bookid:readbookid, location:"2"};
-        userinfo.mybooklist.push(newbook);
-        const {resource: item} = await container.item(id, userid).replace(userinfo);
+        user.mybooklist.push(newbook);
+        const {resource: item} = await container.item(id, userid).replace(user);
         res.status(200).json(`User ${userid} my book list updated successfully`);
         console.log(`User ${userid} my book list updated successfully`);
     } catch(error){
@@ -84,20 +77,12 @@ async function updateMyBookLastRead(req, res){
     const bookid = req.body.bookid;
     try{
         const {resource:user} = await container.item(id, userid).read();
-        const userinfo={
-            id:user.id,
-            userid: user.userid,
-            username:user.username,
-            mybooklist: user.mybooklist,
-            wishlist: user.wishlist,
-            
-        };
-        for(let i=0;i<userinfo.mybooklist.length;i++){
-            if(userinfo.mybooklist[i].bookid==bookid){
-                userinfo.mybooklist[i].location = req.body.location;
+        for(let i=0;i<user.mybooklist.length;i++){
+            if(user.mybooklist[i].bookid==bookid){
+                user.mybooklist[i].location = req.body.location;
             }
         }
-        const {resource:item} = await container.item(id, userid).replace(userinfo);
+        const {resource:item} = await container.item(id, userid).replace(user);
         res.status(200).json(item);
     } catch(error){
         res.status(500).send(error);
