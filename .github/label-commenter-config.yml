@@ -41,7 +41,7 @@ labels:
     labeled:
       issue:
         body: Thank you @{{ issue.user.login }} for suggesting this.
-  - name: wisdeom
+  - name: awaiting review
     labeled:
       issue:
-        body: Thank you @{{ issue.user.login }}. We all know 엄지혜 is pretty cool. 
+        body: @{{ issue.user.login }} is waiting for team's review.
