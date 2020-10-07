@@ -1,5 +1,10 @@
 const express = require('express');
+<<<<<<< HEAD
 
+=======
+const {getTextAnalyticsData } = require('../helpers/cognitiveAPI');
+const {putEmotionCount} = require('../routes/Book_cosmos');
+>>>>>>> master
 const { getHglByBook, getallhighlights, getHglById, postHgl, deleteHgl, deleteHglLike, editHglmemo,getAnnotByBook, getHglByBookWithScope } = require('./Highlight_cosmos');
 const router = express.Router();
 
@@ -15,7 +20,7 @@ router.get("/book/:book_id/memo",(req,res)=>{
 
 //post a highlight on the book
 router.post("/book/:book_id",(req, res)=>{
-    postHgl(req, res);
+    postHgl(req, res);  
 })
 
 //get a highlight by id
@@ -33,7 +38,12 @@ router.delete('/:book_id/:highlight_id',(req, res)=>{
 
 //edit highlight memo
 router.put('/:book_id/:highlight_id',(req,res)=>{
-    editHglmemo(req,res);
+    getTextAnalyticsData(req,res).then((respond) => {
+        let emotion = respond;
+        req.body.emotion = emotion;
+        putEmotionCount(req, res);
+        editHglmemo(req,res);
+    });
 })
 
 router.get("/book/:book_id/:scope", (req, res)=>{
